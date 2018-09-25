@@ -13,7 +13,7 @@ function awk_file {
 
 cat > $MSG
 awk_file $(readlink -f "$0")
-if [ ! -x "$AWK_FILE" ]; then
+if [ ! -r "$AWK_FILE" ]; then
 	echo "$(basename $0): Missing AWK counterpart ($AWK_FILE)" >&2
 	rm $MSG
 	exit 2

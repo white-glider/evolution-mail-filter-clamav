@@ -1,5 +1,3 @@
-#!/bin/awk -f
-
 BEGIN { from=subj="" }
 {
 	if (match($0, "^From: ")) {
