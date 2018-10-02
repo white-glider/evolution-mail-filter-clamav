@@ -15,7 +15,7 @@ It was successfully tested on a [Fedora](https://getfedora.org/) 28 Workstation 
 
 Note: the brief instructions below assume the reader has some basic knowledge of how to use a Linux system.
 
-Simply copy **both** scripts from this project (`.sh` and `.awk`) into a directory of your choice (suggestion: `${HOME}/bin`), set the execute permission on the `.sh` script (e.g. `chmod u+x clamav_evolution.sh`), and add a new message filter for incoming mail to Evolution (see [here](https://help.gnome.org/users/evolution/stable/mail-filters.html.en) for more information):
+Simply copy **both** scripts from this project (`.sh` and `.awk`) into a directory of your choice (suggestion: `${HOME}/bin`), set the execute permission on the `.sh` script (e.g. `chmod u+x clamav_evolution.sh`), and add a new message filter for incoming mail to Evolution which pipes messages to the `.sh` script (see [here](https://help.gnome.org/users/evolution/stable/mail-filters.html.en) for more information):
 
 ![Screenshot of Evolution filter](images/filter_screenshot.png)
 
