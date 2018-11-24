@@ -43,7 +43,7 @@ In fact, the shell script only acts as liaison between Evolution and ClamAV. The
 
 There are a few things that you might want to change in the shell script depending on how many emails you receive or how dramatic you want the threat notification to be. See below:
 
-* You might want to use `clamdscan` instead of `clamscan` if you receive lots of emails, because it might be faster, but it might consume more RAM as well.
+* You might want to use `clamdscan` instead of `clamscan` if you receive many emails, because it is a lot faster, but it consumes more RAM (~1GB) and requires configuration.
 * More visible threat notifications can be achieved by replacing `notify-send` with [`zenity`](https://wiki.gnome.org/Projects/Zenity) (Gnome) or [`kdialog`](https://userbase.kde.org/Kdialog) (KDE).
 
 ## License
