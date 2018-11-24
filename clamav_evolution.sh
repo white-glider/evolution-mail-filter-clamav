@@ -30,6 +30,7 @@ if [ ! -r "$AWK_FILE" ]; then
 	exit 2
 fi
 
+#clamdscan --no-summary $MSG > $RSLT
 clamscan --no-summary --detect-pua=yes --official-db-only=yes $MSG > $RSLT
 if [ $? -eq 1 ]; then
 	THREAT=$(awk '$NF ~ /FOUND/ {print $2}' $RSLT)
