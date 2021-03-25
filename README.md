@@ -46,6 +46,10 @@ There are a few things that you might want to change in the shell script dependi
 * You might want to use `clamdscan` instead of `clamscan` if you receive many emails, because it is a lot faster, but it consumes more RAM (~1GB) and requires configuration.
 * More visible threat notifications can be achieved by replacing `notify-send` with [`zenity`](https://wiki.gnome.org/Projects/Zenity) (Gnome) or [`kdialog`](https://userbase.kde.org/Kdialog) (KDE).
 
+## Limitations
+
+Currently the script can't decode non-ASCII strings (e.g. UTF8), so any notifications triggered by emails that contain those strings (e.g. in the subject line) will display their encoded form. Please refer to [RFC6532](https://tools.ietf.org/html/rfc6532) for more information.
+
 ## License
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
