@@ -48,7 +48,9 @@ There are a few things that you might want to change in the shell script dependi
 
 ## Limitations
 
-Currently the script can't decode non-ASCII strings (e.g. UTF8), so any notifications triggered by emails that contain those strings (e.g. in the subject line) will display their encoded form. Please refer to [RFC6532](https://tools.ietf.org/html/rfc6532) for more information.
+Currently the script can't decode "encoded-words" if they are used in email headers, therefore any notifications triggered by emails that contain those "encoded-words" (e.g. in the subject line) will display their encoded form. Note that the virus detection works as usual and it's not affected by this limitation.
+
+Please refer to [RFC1522](https://tools.ietf.org/html/rfc1522) for more information.
 
 ## License
 
