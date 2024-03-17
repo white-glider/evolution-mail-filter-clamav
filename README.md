@@ -4,12 +4,13 @@ External e-mail filter for [Evolution](https://help.gnome.org/users/evolution/st
 
 ## Prerequisites
 
-This filter was written in [BASH](https://www.gnu.org/software/bash/) and [AWK](https://www.gnu.org/software/gawk/), which should come pre-installed on most Linux distributions. It depends on ClamAV (`clamscan`) and [Gnome's libnotify](https://developer.gnome.org/libnotify/) (`notify-send`).
+This filter was written in [BASH](https://www.gnu.org/software/bash/) and [AWK](https://www.gnu.org/software/gawk/), which should come pre-installed on most Linux distributions. It depends on ClamAV (`clamscan`) and [Gnome's libnotify](https://gnome.pages.gitlab.gnome.org/libnotify/) (`notify-send`).
 
-It was successfully tested on a [Fedora](https://getfedora.org/) 28 Workstation running Evolution 3.28.5, GNU BASH 4.4.23, GNU AWK 4.2.1, ClamAV 0.100.1 and libnotify 0.7.7.
+It was successfully tested on:
+1. [Ubuntu](https://ubuntu.com/desktop) 22.04.4 LTS (jammy) running Evolution 3.44.4, GNU BASH 5.1.16, MAWK 1.3.4, ClamAV 0.103.11  and libnotify 0.7.9.
+2. [Fedora](https://getfedora.org/) 28 Workstation running Evolution 3.28.5, GNU BASH 4.4.23, GNU AWK 4.2.1, ClamAV 0.100.1 and libnotify 0.7.7.
 
-* For other Linux distributions you might want to adjust the the path to the `dialog-warning-symbolic.svg` file inside the shell script, because it will likely be different.
-* Instructions on how to install ClamAV can be found [here](https://www.clamav.net/documents/installing-clamav).
+For other Linux distributions you might want to adjust the the path to the `dialog-warning-symbolic.svg` file inside the shell script, because it can be different. Instructions on how to install ClamAV can be found [here](https://docs.clamav.net/manual/Installing.html).
 
 ## Installing
 
@@ -23,7 +24,7 @@ You might want to create a new subfolder under your INBOX to where the messages 
 
 ## Testing
 
-You can use [EICAR's standard anti-virus test files](https://www.eicar.org/anti_virus_test_file.htm) to see if the script works. For instance:
+You can use [EICAR's standard anti-virus test files](https://www.eicar.org/download-anti-malware-testfile/) to see if the script works. For instance:
 
 ```
 $ cat eicar.com | clamav_evolution.sh
@@ -43,14 +44,18 @@ In fact, the shell script only acts as liaison between Evolution and ClamAV. The
 
 There are a few things that you might want to change in the shell script depending on how many emails you receive or how dramatic you want the threat notification to be. See below:
 
-* You might want to use `clamdscan` instead of `clamscan` if you receive many emails, because it is a lot faster, but it consumes more RAM (~1GB) and requires configuration.
-* More visible threat notifications can be achieved by replacing `notify-send` with [`zenity`](https://wiki.gnome.org/Projects/Zenity) (Gnome) or [`kdialog`](https://userbase.kde.org/Kdialog) (KDE).
+* **Recommended!** You might want to use `clamdscan` instead of `clamscan` if you receive many emails, because it is **a lot** faster, but it consumes a bit more RAM (~1GB) and requires some configuration.
+* More visible threat notifications can be achieved by replacing `notify-send` with [`zenity`](https://gitlab.gnome.org/GNOME/zenity) (Gnome) or [`kdialog`](https://invent.kde.org/utilities/kdialog) (KDE).
 
 ## Limitations
 
 Currently the script can't decode "encoded-words" if they are used in email headers, therefore any notifications triggered by emails that contain those "encoded-words" (e.g. in the subject line) will display their encoded form. Note that the virus detection works as usual and it's not affected by this limitation.
 
 Please refer to [RFC1522](https://tools.ietf.org/html/rfc1522) for more information.
+
+## Alternatives
+
+ClamAV now has [on-access scanning](https://docs.clamav.net/manual/OnAccess.html) capabilities which might be interesting to explore if you are tech savvy, but note that [there was some criticism about its stability](https://wiki.archlinux.org/title/ClamAV#OnAccessScan). I personally haven't tested it.
 
 ## License
 
