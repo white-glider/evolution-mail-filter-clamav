@@ -15,6 +15,8 @@ umask 077
 WORK_DIR=
 CHILD_PID=
 
+# Called indirectly by the EXIT trap; ShellCheck 0.9 cannot trace this call.
+# shellcheck disable=SC2317
 cleanup() {
     if [[ -n "$CHILD_PID" ]]; then
         kill "$CHILD_PID" 2>/dev/null || :
