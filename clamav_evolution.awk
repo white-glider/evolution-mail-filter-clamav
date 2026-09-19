@@ -10,15 +10,30 @@
 # The above copyright notice and this permission notice shall be included in all
 # copies or substantial portions of the Software.
 
-BEGIN { from=subj="" }
+BEGIN { active = "" }
 {
-	if (match($0, "^From: ")) {
-		if (!from) from=substr($0, RSTART) "\n"
-		next
- 	} else if (match($0, "^Subject: ")) {
-		if (!subj) subj=substr($0, RSTART) "\n"
-		next
-	}
-	if (from && subj) exit
+    sub(/\r$/, "")
+    if ($0 == "") exit
+    if ($0 ~ /^[ \t]/) {
+        if (active != "") {
+            sub(/^[ \t]+/, "")
+            value[active] = value[active] " " $0
+        }
+        next
+    }
+    active = ""
+    colon = index($0, ":")
+    if (!colon) next
+    name = tolower(substr($0, 1, colon - 1))
+    if ((name == "from" || name == "subject") && !(name in seen)) {
+        seen[name] = 1
+        text = substr($0, colon + 1)
+        sub(/^[ \t]+/, "", text)
+        value[name] = text
+        active = name
+    }
 }
-END { printf("%s%s", from, subj) }
+END {
+    if ("from" in seen) printf "From: %s\n", value["from"]
+    if ("subject" in seen) printf "Subject: %s\n", value["subject"]
+}

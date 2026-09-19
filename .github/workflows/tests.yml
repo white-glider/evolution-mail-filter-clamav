@@ -1,0 +1,19 @@
+name: Tests
+on: [push, pull_request]
+permissions:
+  contents: read
+jobs:
+  linux:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          persist-credentials: false
+      - name: Install ShellCheck
+        run: sudo apt-get update && sudo apt-get install -y shellcheck
+      - name: Shell syntax and lint
+        run: |
+          bash -n clamav_evolution.sh
+          shellcheck clamav_evolution.sh
+      - name: Regression tests
+        run: python3 -m unittest discover -s tests -v
