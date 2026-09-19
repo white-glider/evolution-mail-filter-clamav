@@ -127,9 +127,10 @@ exit "${NOTIFY_STATUS:-0}"
 
     def test_missing_scanner(self):
         (self.bin / 'clamscan').unlink()
-        # Override command lookup deterministically even on hosts with ClamAV.
-        self.stub('clamscan', 'exit 127\n')
-        self.assertEqual(self.run_filter().returncode, 2)
+        self.env['TEST_PATH'] = shell_path(self.bin)
+        result = self.run_filter()
+        self.assertEqual(result.returncode, 2)
+        self.assertIn(b'Missing command: clamscan', result.stderr)
 
     @unittest.skipIf(os.name == 'nt', 'POSIX file modes required')
     def test_private_permissions(self):

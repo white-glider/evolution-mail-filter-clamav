@@ -24,7 +24,7 @@ cleanup() {
         rm -rf -- "$WORK_DIR"
     fi
 }
-trap cleanup EXIT
+trap 'cleanup' EXIT
 trap 'exit 129' HUP
 trap 'exit 130' INT
 trap 'exit 143' TERM
