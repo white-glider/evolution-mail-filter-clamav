@@ -13,8 +13,11 @@ BASH = os.environ.get('TEST_BASH', 'bash')
 
 
 def shell_path(path):
-    text = str(path.resolve()).replace('\\', '/')
-    return '/' + text[0].lower() + text[2:] if os.name == 'nt' else text
+    text = str(path.resolve())
+    if os.name == 'nt':
+        text = text.replace('\\', '/')
+        return '/' + text[0].lower() + text[2:]
+    return text
 
 
 class FilterTests(unittest.TestCase):
